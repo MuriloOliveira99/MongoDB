@@ -220,3 +220,19 @@ db.restaurants.aggregate([
     {$match: {rating: 5.5}},
     {$count: 'contagemRating'}
 ])
+
+/*
+Agrupa pelo outcode e retona:
+$sum, $avg, $max, $min, $count
+*/ 
+db.restaurants.aggregate([
+   {
+    $group: {
+       codigo_saida: '$outcode',
+       count: {$sum: 1},
+       media: {$avg: '$rating'},
+       min_rating: {$min: '$rating'},
+       max_rating: {$max: '$rating'}, 
+    }
+   }
+])
